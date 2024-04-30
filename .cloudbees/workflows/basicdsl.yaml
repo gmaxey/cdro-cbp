@@ -1,0 +1,21 @@
+apiVersion: automation.cloudbees.io/v1alpha1
+kind: workflow
+name: Basic CDRO evaluate DSL
+on:
+  push:
+    branches:
+      - "main"
+jobs:
+  build-and-publish:
+    steps:
+      - name: Checkout
+        uses: cloudbees-io/checkout@v1
+
+      - name: evalDSL
+        uses: zvercodebender/cdrodsl-action/dslEval@v0.1
+        with:
+          url: "${{ vars.CB_FLOW }}"
+          username: ${{secrets.CB_USER}}
+          user-token: ${{secrets.CB_PASSWD}}
+          file: "basic.dsl"
+          
