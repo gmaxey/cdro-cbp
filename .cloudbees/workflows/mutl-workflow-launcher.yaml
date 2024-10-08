@@ -1,0 +1,14 @@
+apiVersion: automation.cloudbees.io/v1alpha1
+kind: workflow
+name: mutl-workflow-launcher
+on:
+  workflow_dispatch:
+    inputs:
+      workflows:
+        type: string
+        description: list of wf ids to be run
+jobs:
+  demo-several-workflow:
+    delegates: cloudbees-io/run-workflows/custom-job.yml@v1
+    with:
+      workflows: ${{ inputs.workflows }}
